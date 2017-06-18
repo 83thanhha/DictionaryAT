@@ -48,11 +48,13 @@ public class Config {
   private String partnerName;
 
   public Config() {
-    System.setProperty("envFile", "../testng/env/qaZactMvp.json"); //qaZactQaAuto
+    System.setProperty("envFile", "../testng/env/qaZactMobile.json"); //qaZactQaAuto
     System.setProperty("hub", "http://localhost:4444/wd/hub");
 
     String envFile = System.getProperty("envFile");
     System.out.println(envFile);
+    String abc = System.getProperty("abc");
+    System.out.println("ABCABCABC" + abc);
     if (envFile == null) {
       System.out.println("envFile == null Setting Default to IT Zact Mobile");
       envFile = "../testng/env/itSprint.json";
