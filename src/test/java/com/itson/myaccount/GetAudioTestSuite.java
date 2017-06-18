@@ -23,8 +23,8 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
     
   private JSONArray plansExcel;
   private String oxfordInputOutputPath = "_OXFORD" + Util.separator;
-  private String book = "01";
-  private String unit = "01";
+  private String book = System.getProperty("book");
+  private String unit = System.getProperty("unit");
   private String bookFolder = "Book"+book+"-Audio";
   private String unitFolder = "Book"+book+"-Unit"+unit;
   private String bookUnitPath = bookFolder + Util.separator + unitFolder + Util.separator;
