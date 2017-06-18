@@ -61,42 +61,48 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
             continue;
         }
 
-        /** PRONOUNCE **/
-        browser.logAction("Get BrE and AmE Pronunciation:");
-        List<WebElement> pronounces = browser.findElements(By.cssSelector(".top-container .pron-g .phon"));
-        if (pronounces.size() > 0) {
-            if (pronounces.get(0) != null) {
-                WebElement brEPronounceEle = pronounces.get(0);
-                brEPronounce = brEPronounceEle.getText();
-                browser.logAction("BrE link of " + word + " is: " + brEPronounce);
-            }
-            else 
-                browser.logAction("Can not get BrE Pronunciation!!!");
+        try {
+            /** PRONOUNCE **/
+            browser.logAction("Get BrE and AmE Pronunciation:");
+            List<WebElement> pronounces = browser.findElements(By.cssSelector(".top-container .pron-g .phon"));
+            if (pronounces.size() > 0) {
+                if (pronounces.get(0) != null) {
+                    WebElement brEPronounceEle = pronounces.get(0);
+                    brEPronounce = brEPronounceEle.getText();
+                    browser.logAction("BrE link of " + word + " is: " + brEPronounce);
+                }
+                else 
+                    browser.logAction("Can not get BrE Pronunciation!!!");
 
-            if (pronounces.get(1) != null) {
-                WebElement amEPronounceEle = pronounces.get(1);
-                amEPronounce = amEPronounceEle.getText();
-                browser.logAction("AmE link of " + word + " is: " + amEPronounce);
+                if (pronounces.get(1) != null) {
+                    WebElement amEPronounceEle = pronounces.get(1);
+                    amEPronounce = amEPronounceEle.getText();
+                    browser.logAction("AmE link of " + word + " is: " + amEPronounce);
+                }
+                else 
+                    browser.logAction("Can not get AmE Pronunciation!!!");
             }
             else 
-                browser.logAction("Can not get AmE Pronunciation!!!");
+                browser.logAction("Can not get BrE and AmE Pronunciation!!!");
+            /*~ PRONOUNCE ~*/
+
+            /** LINK **/
+            browser.logAction("Get BrE and AmE Sound Link:");
+            WebElement brEAudioEle = browser.findElement(By.cssSelector(".sound.audio_play_button.pron-uk.icon-audio"));
+            brEAudioLink = brEAudioEle.getAttribute("data-src-mp3").toString();
+            browser.logAction("BrE link of " + word + " is: " + brEAudioLink);
+
+            WebElement amEAudioEle = browser.findElement(By.cssSelector(".sound.audio_play_button.pron-us.icon-audio"));
+            amEAudioLink = amEAudioEle.getAttribute("data-src-mp3").toString();
+            browser.logAction("AmE link of " + word + " is: " + amEAudioLink);
+
+            Reporter.log(brEPronounce + ", " + amEPronounce + ", " + brEAudioLink + ", " + amEAudioLink);
+            /*~ LINK ~*/
         }
-        else 
-            browser.logAction("Can not get BrE and AmE Pronunciation!!!");
-        /*~ PRONOUNCE ~*/
-
-        /** LINK **/
-        browser.logAction("Get BrE and AmE Sound Link:");
-        WebElement brEAudioEle = browser.findElement(By.cssSelector(".sound.audio_play_button.pron-uk.icon-audio"));
-        brEAudioLink = brEAudioEle.getAttribute("data-src-mp3").toString();
-        browser.logAction("BrE link of " + word + " is: " + brEAudioLink);
-
-        WebElement amEAudioEle = browser.findElement(By.cssSelector(".sound.audio_play_button.pron-us.icon-audio"));
-        amEAudioLink = amEAudioEle.getAttribute("data-src-mp3").toString();
-        browser.logAction("AmE link of " + word + " is: " + amEAudioLink);
-
-        Reporter.log(brEPronounce + ", " + amEPronounce + ", " + brEAudioLink + ", " + amEAudioLink);
-        /*~ LINK ~*/
+        catch (Exception ex) {
+            browser.logAction("CAN NOT GET PRONUNCIATION AND AUDIO FOR THE WORD: " + word.toUpperCase() + "!!!");
+            Reporter.log("");
+        }
       }
       else {
           browser.logAction("The row " + (i+2) + " with word '" + word + "' has full data, so next.");
