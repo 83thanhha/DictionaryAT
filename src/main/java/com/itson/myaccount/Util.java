@@ -367,7 +367,7 @@ public class Util {
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     File outputFile = new File(folderPath + subFolder + fileNameWithExtension);
-                    if (!outputFile.exists()) {
+//                    if (!outputFile.exists()) {
                         InputStream inputStream = entity.getContent();
                         FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
                         int read = 0;
@@ -377,11 +377,11 @@ public class Util {
                         }
                         fileOutputStream.close();
                         browser.logAction("DOWNLOADED FILE" + outputFile.length() + " bytes. " + entity.getContentType() + " to " + outputFile.getPath());
-                    }
-                    else {
-                        browser.logAction("FILE " + outputFile.getName() + " IS ALREADY AVAILABLE");
-                        Reporter.log("FILE " + outputFile.getName() + " IS ALREADY AVAILABLE");
-                    }
+//                    }
+//                    else {
+//                        browser.logAction("FILE " + outputFile.getName() + " IS ALREADY AVAILABLE");
+//                        Reporter.log("FILE " + outputFile.getName() + " IS ALREADY AVAILABLE");
+//                    }
                 } else {
                     browser.logAction("FAILED DOWNLOADING!");
                 }
