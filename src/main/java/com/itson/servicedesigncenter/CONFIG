@@ -1,0 +1,86 @@
+CONFIG
+
+    System.setProperty("envFile", "../testng/env/qaZactMvp.json"); //qaZactQaAuto
+    System.setProperty("hub", "http://10.10.33.30:4444/wd/hub");
+
+
+this.hostUrlMyAccount = "http://hercules.dev.itsoninc.com:44752";// "https://zact-myaccount-di01." + envId + ".itsonsaas.
+
+
+https://sapphire-sapphire.io1.account.qa.itsonsaas.com/site/iframetest
+
+,
+    "zact-mvpqa": {
+        "skuProducIdVoice": 100059430,
+        "skuProducIdText": 100059595,
+        "skuProducIdData": 100059225,
+        "categoryIdVoice": 100024267,
+        "categoryIdText": 100024271,
+        "categoryIdData": 100024269,
+        "planNameVoice": "Talk 20 mins",
+        "planNameText": "100 Texts",
+        "planNameData": "100 MB"
+    },
+    "zact-sapphireqa": {
+        "skuProducIdVoice": 100026007,
+        "skuProducIdText": 100025986,
+        "skuProducIdData": 100025840,
+        "categoryIdVoice": 100002258,
+        "categoryIdText": 100005400,
+        "categoryIdData": 100005402,
+        "planNameVoice": "Voice 25 min carousel",
+        "planNameText": "Text 50 texts carousel",
+        "planNameData": "Data 40 MB carousel"
+    }
+
+
+    ,
+    "sapphire-sapphireqa": {
+        "skuProducIdVoice": 100000556,
+        "skuProducIdText": 100000591,
+        "skuProducIdData": 100000950,
+        "categoryIdVoice": 100000003,
+        "categoryIdText": 100000011,
+        "categoryIdData": 100000008,
+        "planNameVoice": "Carousel - Voice 900 mins",
+        "planNameText": "Carousel - SMS 600 texts",
+        "planNameData": "D1 250MB"
+    }
+
+
+
+    {
+    "testMDN": "5049058478",
+    "tenantId": "sapphire",
+    "envId": "qa",
+    "partnerId": "3c5631df-52c9-41f5-8d92-692f1b42722b",
+    "partnerName": "sapphire-sapphire",
+    "grant_type": "password",
+    "username": "thanhhanguyen",
+    "password": "Av#12jZ1",
+    "adminuser": "thanhhanguyen",
+    "adminpassword": "Av#12jZ1",
+    "client_id": "5f31e75c998b7006a6612e39bdc1e92c",
+    "client_secret": "gVObuEIr7vZgWZq65WHvffAfI8pG51moPw25rdESKNQ",
+    "blUsername": "automation",
+    "blPassword": "SOASTA650",
+    "sandbox": "Automation"
+}
+ No newline at end of file
+
+
+
+
+    "zact-virginqa": {
+        "skuProducIdVoice": ,
+        "skuProducIdText": ,
+        "skuProducIdData": ,
+        "planNameVoice": "",
+        "planNameText": "",
+        "planNameData": ""
+        "categoryIdVoice": 100031368,
+        "categoryIdText": 100031366,
+        "categoryIdData": 100031364,
+    },
+
+    

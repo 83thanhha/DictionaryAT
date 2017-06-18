@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="MyAccountRegressionTest" verbose="7" parallel="tests" thread-count="5" configfailurepolicy="continue" > 
+<!--    <listeners>
+        <listener class-name="com.itson.servicedesigncenter.IOTestListenerAdapter" />
+    </listeners>-->
+<!--    <groups>
+        <run>
+            <exclude name="noZact" />
+            <include name="Sprint" />
+        </run>
+    </groups>-->
+    <test name="AccountOverviewTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.AccountOverviewTestSuite" />
+        </classes>
+    </test>
+    <test name="UpgradeDowngradeTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.BasePlanTestSuite" />
+        </classes>
+    </test>
+    <test name="CreditCardTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.CreditCardTestSuite" />
+        </classes>
+    </test>
+    <test name="DeviceTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.DeviceTestSuite" />
+        </classes>
+    </test>
+    <test name="MyAccountUITestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.MyAccountUITestSuite" />
+        </classes>
+    </test>
+    <test name="RestrictionTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.RestrictionTestSuite" />
+        </classes>
+    </test>
+    <test name="GiftSpecialOfferTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.GiftSpecialOfferTestSuite" />
+        </classes>
+    </test>
+    <test name="PurchaseSpecialOfferTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.PurchaseSpecialOfferTestSuite" />
+        </classes>
+    </test>
+<!--    <test name="FeatureTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.servicedesigncenter.FeatureTestSuite" />
+            <methods>
+                <exclude name="checkFeatureDelete" />
+                <include name="checkFeatureDelete2" />
+            </methods>
+        </classes>
+    </test>-->
+</suite>

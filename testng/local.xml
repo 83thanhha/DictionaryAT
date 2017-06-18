@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="MyAccountRegressionTest" verbose="7" parallel="tests" thread-count="3" configfailurepolicy="continue" > 
+<!--    <listeners>
+        <listener class-name="com.itson.servicedesigncenter.IOTestListenerAdapter" />
+    </listeners>-->
+<!--    <groups>
+        <run>
+            <exclude name="noZact" />
+            <include name="Sprint" />
+        </run>
+    </groups>-->
+<!--    
+    <test name="AccountOverviewTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.sanity.AccountOverviewTestSuite" />
+            <methods>
+            </methods>
+        </classes>
+    </test>
+-->    
+<!--   
+    <test name="UpgradeDowngradeTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.sanity.BasePlanTestSuite" />
+            <methods>
+                <include name = "Upgrade_Downgrade_UI" />
+            </methods>
+        </classes>
+    </test>
+   -->
+<!--   
+    <test name="CompoundBundleTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.sanity.CompoundBundleTestSuite" />
+            <methods>
+            </methods>
+        </classes>
+    </test>
+    -->
+   
+<!--    
+    <test name="CreditCardTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.sanity.CreditCardTestSuite" />
+            <methods>
+            </methods>
+        </classes>
+    </test>
+    -->
+<!--
+    <test name="DeviceTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.sanity.DeviceTestSuite" />
+            <methods>
+            </methods>
+        </classes>
+    </test>
+    -->
+<!--
+    <test name="MyAccountUITestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.MyAccountUITestSuite" />
+            <methods>
+            </methods>
+        </classes>
+    </test>
+    -->
+<!--    
+    <test name="RestrictionTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.sanity.RestrictionTestSuite" />
+            <methods>
+                <exclude name = "SAAS8247_AddRestriction_CustomAttribute" />
+            </methods>
+        </classes>
+    </test>
+    -->
+<!--    
+    <test name="PurchaseSpecialOfferTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.sanity.PurchaseSpecialOfferTestSuite" />
+            <methods>
+                <include name = "Purchase_RecurringSingleShareable_OneUpTwoDevices" />
+            </methods>
+        </classes>
+    </test>
+    -->
+    
+    <test name="GetAudioTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.GetAudioTestSuite" />
+            <methods>
+                <!--<include name="getAudioLink" />-->
+                <include name="getAudioFile" />
+            </methods>
+        </classes>
+    </test>
+    
+<!--    
+    <test name="TerminateAccountTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.myaccount.sanity.TerminateAccountTestSuite" />
+            <methods>
+                <include name="TestSavedAccount" />
+                <include name="TerminateAccount" />
+            </methods>
+        </classes>
+    </test>
+    -->
+<!--    <test name="FeatureTestSuite" preserve-order="true">
+        <classes preserve-order="true">
+            <class name="com.itson.servicedesigncenter.FeatureTestSuite" />
+            <methods>
+                <exclude name="checkFeatureDelete" />
+                <include name="SAAS3804_Subscription_DeviceJoining" />
+            </methods>
+        </classes>
+    </test>-->
+</suite>

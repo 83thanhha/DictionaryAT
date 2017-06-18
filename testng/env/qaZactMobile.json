@@ -1,0 +1,17 @@
+{
+    "testMDN": "5049058478",
+    "tenantId": "zact",
+    "envId": "qa",
+    "partnerId": "d878bc1e-9bb8-4a0e-b224-a4ba0d7dfcec",
+    "partnerName": "zact-mobile",
+    "grant_type": "password",
+    "username": "saasadmin@itsoninc.com",
+    "password": "forzaQAZact1",
+    "adminuser": "saasadmin@itsoninc.com",
+    "adminpassword": "forzaQAZact1",
+    "client_id": "5f31e75c998b7006a6612e39bdc1e92c",
+    "client_secret": "gVObuEIr7vZgWZq65WHvffAfI8pG51moPw25rdESKNQ",
+    "blUsername": "adminbl",
+    "blPassword": "So@STA650",
+    "sandbox": "Automation"
+}
