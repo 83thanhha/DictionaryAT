@@ -51,10 +51,8 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       String word = plansExcel.getJSONObject(i).getString("Word").trim();
       String brEPronounce = plansExcel.getJSONObject(i).getString("BrEPronounce");
       String amEPronounce = plansExcel.getJSONObject(i).getString("AmEPronounce");
-      String description = plansExcel.getJSONObject(i).getString("Description");
       String brEAudioLink = plansExcel.getJSONObject(i).getString("BrEAudioLink");
       String amEAudioLink = plansExcel.getJSONObject(i).getString("AmEAudioLink");
-      boolean passed = plansExcel.getJSONObject(i).getBoolean("Passed");
       
 //      if (util.isStringEmpty(brEPronounce) || util.isStringEmpty(amEPronounce) || util.isStringEmpty(brEAudioLink) || util.isStringEmpty(amEAudioLink)) {
         browser.logAction("Get Pronounciation and Link of row " + (i+2) + " with word: " + word);
