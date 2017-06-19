@@ -23,9 +23,9 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
     
   private JSONArray plansExcel;
   private String oxfordInputOutputPath = "_OXFORD" + Util.separator;
-  private String book = "01"; //System.getProperty("book");
-  private String unitBegin = "01"; //System.getProperty("unitBegin");
-  private String unitEnd = "01"; //System.getProperty("unitEnd");
+  private String book = System.getProperty("book");
+  private String unitBegin = System.getProperty("unitBegin");
+  private String unitEnd = System.getProperty("unitEnd");
   private String bookFolder = "Book"+book+"-Audio";
     
   @BeforeMethod // Use when setup this testsuite will run with multi account
