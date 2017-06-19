@@ -155,8 +155,8 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
             /*~ ANOTHER DESCRIPTION ~*/
             
             // SUMMARIZE:
-            browser.logAction("SUMMARIZE: " + brEPronounce + "; " + amEPronounce + "; " + brEAudioLink + "; " + amEAudioLink + "; " + idioms + "; " + phrasalVerbs + "; " + mainDes + "; " + anotherDes);
-            Reporter.log(brEPronounce + "; " + amEPronounce + "; " + brEAudioLink + "; " + amEAudioLink + "; " + idioms + "; " + phrasalVerbs + "; " + mainDes + "; " + anotherDes);
+            browser.logAction("SUMMARIZE: " + brEPronounce + "^_^" + amEPronounce + "^_^" + brEAudioLink + "^_^" + amEAudioLink + "^_^" + idioms + "^_^" + phrasalVerbs + "^_^" + mainDes + "^_^" + anotherDes);
+            Reporter.log(brEPronounce + "^_^" + amEPronounce + "^_^" + brEAudioLink + "^_^" + amEAudioLink + "^_^" + idioms + "^_^" + phrasalVerbs + "^_^" + mainDes + "^_^" + anotherDes);
         }
         catch (Exception ex) {
             browser.logAction("CAN NOT GET INFO FOR THE WORD: " + word.toUpperCase() + "!!! With the exception is: " + ex.toString());
