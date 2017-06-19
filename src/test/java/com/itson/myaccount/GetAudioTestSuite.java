@@ -24,18 +24,27 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   private JSONArray plansExcel;
   private String oxfordInputOutputPath = "_OXFORD" + Util.separator;
   private String book = System.getProperty("book");
-  private String unit = System.getProperty("unit");
+  private String unitBegin = System.getProperty("unitBegin");
+  private String unitEnd = System.getProperty("unitEnd");
   private String bookFolder = "Book"+book+"-Audio";
-  private String unitFolder = "Book"+book+"-Unit"+unit;
-  private String bookUnitPath = bookFolder + Util.separator + unitFolder + Util.separator;
     
   @BeforeMethod // Use when setup this testsuite will run with multi account
   public void methodSetUpGetAudio() throws JSONException {
   }
 
   @Test(groups = {"MyAccount", "Zact", "Sprint"}, priority = 1)
-  public void getAudioLink() throws JSONException, ParseException  {
-    plansExcel = Util.Reader.readExcelHasFirstRowIsKeyToJSONArray("vocabulary-"+book+".xlsx", unit, oxfordInputOutputPath);
+  public void getWordInfoMultiSheets() throws JSONException, ParseException  {
+      int unitBeginInt = Integer.parseInt(unitBegin);
+      int unitEndInt = Integer.parseInt(unitEnd);
+      for (int i = unitBeginInt; i <= unitEndInt; i ++) {
+          getWordInfoEachSheet(String.format("%02d", i));
+      }
+  }
+  
+  public void getWordInfoEachSheet(String unit) throws JSONException, ParseException {
+    browser.logAction("GET INFO FOR UNIT: " + unit);
+    Reporter.log("");
+    plansExcel = Util.Reader.readExcelHasFirstRowIsKeyToJSONArray("Vocabulary-"+book+".xlsx", unit, oxfordInputOutputPath);
     
     for (int i = 0; i < plansExcel.length(); i ++) {
       browser.logAction("Get row: " + (i+2));
@@ -47,7 +56,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       String amEAudioLink = plansExcel.getJSONObject(i).getString("AmEAudioLink");
       boolean passed = plansExcel.getJSONObject(i).getBoolean("Passed");
       
-      if (util.isStringEmpty(brEPronounce) || util.isStringEmpty(amEPronounce) || util.isStringEmpty(brEAudioLink) || util.isStringEmpty(amEAudioLink)) {
+//      if (util.isStringEmpty(brEPronounce) || util.isStringEmpty(amEPronounce) || util.isStringEmpty(brEAudioLink) || util.isStringEmpty(amEAudioLink)) {
         browser.logAction("Get Pronounciation and Link of row " + (i+2) + " with word: " + word);
         WebElement searchFld = browser.findElement(By.id("q"));
         browser.sendKeys(searchFld, word, true);
@@ -69,7 +78,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
                 if (pronounces.get(0) != null) {
                     WebElement brEPronounceEle = pronounces.get(0);
                     brEPronounce = brEPronounceEle.getText();
-                    browser.logAction("BrE link of " + word + " is: " + brEPronounce);
+                    browser.logAction("BrE pronunciation of " + word + " is: " + brEPronounce);
                 }
                 else 
                     browser.logAction("Can not get BrE Pronunciation!!!");
@@ -77,7 +86,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
                 if (pronounces.get(1) != null) {
                     WebElement amEPronounceEle = pronounces.get(1);
                     amEPronounce = amEPronounceEle.getText();
-                    browser.logAction("AmE link of " + word + " is: " + amEPronounce);
+                    browser.logAction("AmE pronunciation of " + word + " is: " + amEPronounce);
                 }
                 else 
                     browser.logAction("Can not get AmE Pronunciation!!!");
@@ -95,26 +104,90 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
             WebElement amEAudioEle = browser.findElement(By.cssSelector(".sound.audio_play_button.pron-us.icon-audio"));
             amEAudioLink = amEAudioEle.getAttribute("data-src-mp3").toString();
             browser.logAction("AmE link of " + word + " is: " + amEAudioLink);
-
-            Reporter.log(brEPronounce + ", " + amEPronounce + ", " + brEAudioLink + ", " + amEAudioLink);
             /*~ LINK ~*/
+            
+            /** IDIOM, PHRASAL VERB **/
+            List<WebElement> extraSections = browser.findElements(By.cssSelector(".accordion>dt"));
+            String phrasalVerbs = "";
+            String idioms = "";
+            for (int j = 0; (extraSections.size() > 0 && j < extraSections.size()); j++) {
+                String tempSectionText = extraSections.get(j).getText();
+                extraSections.get(j).click();
+                switch (tempSectionText) {
+                    case "Phrasal verbs":
+                        phrasalVerbs = getExtraSectionData(j).replace("phrasal verb", "");
+                        break;
+                    case "Idioms":
+                        idioms = getExtraSectionData(j);
+                        break;
+                }
+            }
+            /*~ IDIOM, PHRASAL VERB ~*/
+            
+            /** MAIN DESCRIPTION **/
+            String type = browser.findElementByXPath("//div[@class='webtop-g']/span[3]").getText();
+            List<WebElement> descriptions = browser.findElements(By.cssSelector(".cf,.def"));
+            String mainDes = "";
+            for (int j = 0; (descriptions.size() > 0 && j < descriptions.size() && j < 10); j++) {
+                String temDes = descriptions.get(j).getText();
+                if (descriptions.get(j).getAttribute("class").equalsIgnoreCase("cf"))
+                    temDes = temDes.toUpperCase();
+                mainDes += ", " + temDes;
+            }
+            mainDes = getShortType(type) + mainDes.substring(2);
+            browser.logAction("Type of word " + word + ": " + getShortType(type));
+            /*~ MAIN DESCRIPTION ~*/
+            
+            /** ANOTHER DESCRIPTION **/
+            browser.click(By.cssSelector(".accordion>dt")); // Open the "All matches" section again (after open the Idioms or Phrasal Verbs sections)
+            browser.click(By.cssSelector(".list-col>li>a"));
+            browser.waitForPageLoaded();
+            String typeAnother = browser.findElementByXPath("//div[@class='webtop-g']/span[3]").getText();
+            List<WebElement> descriptionsAnother = browser.findElements(By.cssSelector(".cf,.def"));
+            String anotherDes = "";
+            for (int j = 0; (descriptionsAnother.size() > 0 && j < descriptionsAnother.size() && j < 10); j++) {
+                String temDes = descriptionsAnother.get(j).getText();
+                if (descriptionsAnother.get(j).getAttribute("class").equalsIgnoreCase("cf"))
+                    temDes = temDes.toUpperCase();
+                anotherDes += ", " + temDes;
+            }
+            if (anotherDes.length() >= 2)
+                anotherDes = getShortType(typeAnother) + anotherDes.substring(2);
+            browser.logAction("Another Type of word " + word + ": " + getShortType(typeAnother));
+            /*~ ANOTHER DESCRIPTION ~*/
+            
+            // SUMMARIZE:
+            browser.logAction("SUMMARIZE: " + brEPronounce + "; " + amEPronounce + "; " + brEAudioLink + "; " + amEAudioLink + "; " + idioms + "; " + phrasalVerbs + "; " + mainDes + "; " + anotherDes);
+            Reporter.log(brEPronounce + "; " + amEPronounce + "; " + brEAudioLink + "; " + amEAudioLink + "; " + idioms + "; " + phrasalVerbs + "; " + mainDes + "; " + anotherDes);
         }
         catch (Exception ex) {
-            browser.logAction("CAN NOT GET PRONUNCIATION AND AUDIO FOR THE WORD: " + word.toUpperCase() + "!!!");
+            browser.logAction("CAN NOT GET INFO FOR THE WORD: " + word.toUpperCase() + "!!! With the exception is: " + ex.toString());
             Reporter.log("");
         }
-      }
-      else {
-          browser.logAction("The row " + (i+2) + " with word '" + word + "' has full data, so next.");
-          Reporter.log("");
-          continue;
-      }
+//      }
+//      else {
+//          browser.logAction("The row " + (i+2) + " with word '" + word + "' has full data, so next.");
+//          Reporter.log("");
+//          continue;
+//      }
     }
   }
   
   @Test(groups = {"MyAccount", "Zact", "Sprint"}, priority = 1)
-  public void getAudioFile() throws JSONException, ParseException  {
-    plansExcel = Util.Reader.readExcelHasFirstRowIsKeyToJSONArray("vocabulary-"+book+".xlsx", unit, oxfordInputOutputPath);
+  public void getAudioFileMultiSheets() throws JSONException, ParseException  {
+      int unitBeginInt = Integer.parseInt(unitBegin);
+      int unitEndInt = Integer.parseInt(unitEnd);
+      for (int i = unitBeginInt; i <= unitEndInt; i ++) {
+          getAudioFileEachSheet(String.format("%02d", i));
+      }
+  }
+  
+  public void getAudioFileEachSheet(String unit) throws JSONException, ParseException  {
+    browser.logAction("GET AUDIO FILE FOR UNIT: " + unit);
+    Reporter.log("");
+    String unitFolder = "Book"+book+"-Unit"+unit;
+    String bookUnitPath = bookFolder + Util.separator + unitFolder + Util.separator;
+    plansExcel = Util.Reader.readExcelHasFirstRowIsKeyToJSONArray("Vocabulary-"+book+".xlsx", unit, oxfordInputOutputPath);
     
     for (int i = 0; i < plansExcel.length(); i ++) {
       browser.logAction("Get row: " + (i+2));
@@ -146,5 +219,34 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
           continue;
       }
     }
+  }
+  
+  public String getShortType(String type) {
+      if (type.equalsIgnoreCase("noun")) 
+          return "(N) ";
+      if (type.equalsIgnoreCase("verb"))
+          return "(V) ";
+      if (type.equalsIgnoreCase("adjective"))
+          return "(Adj) ";
+      if (type.equalsIgnoreCase("adverb"))
+          return "(Adv) ";
+      return "(" + type + ")";
+  }
+  
+  public String getExtraSectionData(int sectionIndex) {
+      WebElement section = browser.findElement(By.xpath("//dl[@class='accordion ui-grad']/dd["+ (sectionIndex+1) +"]"));
+      String extraSectionData = "";
+      String sectionText = section.getText();
+      if (section.getText().contains("See more")) {
+          section.findElement(By.cssSelector("a.see-more")).click();
+      }
+      List<WebElement> rows = section.findElements(By.cssSelector("li"));
+      if (rows != null) {
+          for (int i = 0; i < rows.size(); i ++) {
+              extraSectionData += ", " + rows.get(i).getText();
+          }
+      }
+      extraSectionData = extraSectionData.substring(2);
+      return extraSectionData;
   }
 }

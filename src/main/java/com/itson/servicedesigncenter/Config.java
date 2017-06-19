@@ -53,8 +53,6 @@ public class Config {
 
     String envFile = System.getProperty("envFile");
     System.out.println(envFile);
-    String abc = System.getProperty("abc");
-    System.out.println("ABCABCABC" + abc);
     if (envFile == null) {
       System.out.println("envFile == null Setting Default to IT Zact Mobile");
       envFile = "../testng/env/itSprint.json";

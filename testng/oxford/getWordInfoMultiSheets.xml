@@ -4,8 +4,8 @@
         <classes preserve-order="true">
             <class name="com.itson.myaccount.GetAudioTestSuite" />
             <methods>
-                <!--<include name="getWordInfoMultiSheets" />-->
-                <include name="getAudioFileMultiSheets" />
+                <include name="getWordInfoMultiSheets" />
+                <!--<include name="getAudioFileMultiSheets" />-->
             </methods>
         </classes>
     </test>
