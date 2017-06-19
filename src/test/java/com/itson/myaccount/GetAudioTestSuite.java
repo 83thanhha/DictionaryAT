@@ -190,12 +190,8 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
     for (int i = 0; i < plansExcel.length(); i ++) {
       browser.logAction("Get row: " + (i+2));
       String word = plansExcel.getJSONObject(i).getString("Word").trim();
-      String brEPronounce = plansExcel.getJSONObject(i).getString("BrEPronounce");
-      String amEPronounce = plansExcel.getJSONObject(i).getString("AmEPronounce");
-      String description = plansExcel.getJSONObject(i).getString("Description");
       String brEAudioLink = plansExcel.getJSONObject(i).getString("BrEAudioLink");
       String amEAudioLink = plansExcel.getJSONObject(i).getString("AmEAudioLink");
-      boolean passed = plansExcel.getJSONObject(i).getBoolean("Passed");
       
       if (!util.isStringEmpty(brEAudioLink)) {
         browser.logAction("Get audio of row " + (i+2) + " with word: " + word);
