@@ -23,9 +23,9 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
     
   private JSONArray plansExcel;
   private String oxfordInputOutputPath = "_OXFORD" + Util.separator;
-  private String book = System.getProperty("book");
-  private String unitBegin = System.getProperty("unitBegin");
-  private String unitEnd = System.getProperty("unitEnd");
+  private String book = "01"; //System.getProperty("book");
+  private String unitBegin = "01"; //System.getProperty("unitBegin");
+  private String unitEnd = "01"; //System.getProperty("unitEnd");
   private String bookFolder = "Book"+book+"-Audio";
     
   @BeforeMethod // Use when setup this testsuite will run with multi account
@@ -105,20 +105,25 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
             /*~ LINK ~*/
             
             /** IDIOM, PHRASAL VERB **/
-            List<WebElement> extraSections = browser.findElements(By.cssSelector(".accordion>dt"));
             String phrasalVerbs = "";
             String idioms = "";
-            for (int j = 0; (extraSections.size() > 0 && j < extraSections.size()); j++) {
-                String tempSectionText = extraSections.get(j).getText();
-                extraSections.get(j).click();
-                switch (tempSectionText) {
-                    case "Phrasal verbs":
-                        phrasalVerbs = getExtraSectionData(j).replace("phrasal verb", "");
-                        break;
-                    case "Idioms":
-                        idioms = getExtraSectionData(j);
-                        break;
+            try {
+                List<WebElement> extraSections = browser.findElements(By.cssSelector(".accordion>dt"));
+                for (int j = 0; (extraSections.size() > 0 && j < extraSections.size()); j++) {
+                    String tempSectionText = extraSections.get(j).getText();
+                    extraSections.get(j).click();
+                    switch (tempSectionText) {
+                        case "Phrasal verbs":
+                            phrasalVerbs = getExtraSectionData(j).replace("phrasal verb", "");
+                            break;
+                        case "Idioms":
+                            idioms = getExtraSectionData(j);
+                            break;
+                    }
                 }
+            }
+            catch (Exception ex1) {
+                browser.logAction("CAN NOT GET IDIOMS OR PHRASAL VERBS FOR THE WORD: " + word.toUpperCase() + "!!! With the exception is: " + ex1.toString());
             }
             /*~ IDIOM, PHRASAL VERB ~*/
             
@@ -137,21 +142,26 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
             /*~ MAIN DESCRIPTION ~*/
             
             /** ANOTHER DESCRIPTION **/
-            browser.click(By.cssSelector(".accordion>dt")); // Open the "All matches" section again (after open the Idioms or Phrasal Verbs sections)
-            browser.click(By.cssSelector(".list-col>li>a"));
-            browser.waitForPageLoaded();
-            String typeAnother = browser.findElementByXPath("//div[@class='webtop-g']/span[3]").getText();
-            List<WebElement> descriptionsAnother = browser.findElements(By.cssSelector(".cf,.def"));
             String anotherDes = "";
-            for (int j = 0; (descriptionsAnother.size() > 0 && j < descriptionsAnother.size() && j < 10); j++) {
-                String temDes = descriptionsAnother.get(j).getText();
-                if (descriptionsAnother.get(j).getAttribute("class").equalsIgnoreCase("cf"))
-                    temDes = temDes.toUpperCase();
-                anotherDes += ", " + temDes;
+            try {
+                browser.click(By.cssSelector(".accordion>dt")); // Open the "All matches" section again (after open the Idioms or Phrasal Verbs sections)
+                browser.click(By.cssSelector(".list-col>li>a"));
+                browser.waitForPageLoaded();
+                String typeAnother = browser.findElementByXPath("//div[@class='webtop-g']/span[3]").getText();
+                List<WebElement> descriptionsAnother = browser.findElements(By.cssSelector(".cf,.def"));
+                for (int j = 0; (descriptionsAnother.size() > 0 && j < descriptionsAnother.size() && j < 10); j++) {
+                    String temDes = descriptionsAnother.get(j).getText();
+                    if (descriptionsAnother.get(j).getAttribute("class").equalsIgnoreCase("cf"))
+                        temDes = temDes.toUpperCase();
+                    anotherDes += ", " + temDes;
+                }
+                if (anotherDes.length() >= 2)
+                    anotherDes = getShortType(typeAnother) + anotherDes.substring(2);
+                browser.logAction("Another Type of word " + word + ": " + getShortType(typeAnother));
             }
-            if (anotherDes.length() >= 2)
-                anotherDes = getShortType(typeAnother) + anotherDes.substring(2);
-            browser.logAction("Another Type of word " + word + ": " + getShortType(typeAnother));
+            catch (Exception ex1) {
+                browser.logAction("CAN NOT GET ANOTHER DESCRIPTION FOR THE WORD: " + word.toUpperCase() + "!!! With the exception is: " + ex1.toString());
+            }
             /*~ ANOTHER DESCRIPTION ~*/
             
             // SUMMARIZE:
