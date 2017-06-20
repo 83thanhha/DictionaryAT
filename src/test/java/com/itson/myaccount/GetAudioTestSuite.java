@@ -5,6 +5,7 @@
  */
 package com.itson.myaccount;
 
+import com.sun.xml.internal.ws.util.StringUtils;
 import java.text.ParseException;
 import java.util.List;
 import org.json.JSONArray;
@@ -165,8 +166,8 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
             /*~ ANOTHER DESCRIPTION ~*/
             
             // SUMMARIZE:
-            browser.logAction("SUMMARIZE: " + brEPronounce + "^_^" + amEPronounce + "^_^" + brEAudioLink + "^_^" + amEAudioLink + "^_^" + idioms + "^_^" + phrasalVerbs + "^_^" + mainDes + "^_^" + anotherDes);
-            Reporter.log(brEPronounce + "^_^" + amEPronounce + "^_^" + brEAudioLink + "^_^" + amEAudioLink + "^_^" + idioms + "^_^" + phrasalVerbs + "^_^" + mainDes + "^_^" + anotherDes);
+            browser.logAction(brEPronounce + "^_^" + amEPronounce + "^_^" + idioms + "^_^" + phrasalVerbs + "^_^" + mainDes + "^_^" + anotherDes + "^_^" + " " + "^_^" + " " + "^_^" + brEAudioLink + "^_^" + amEAudioLink);
+            Reporter.log(brEPronounce + "^_^" + amEPronounce + "^_^" + idioms + "^_^" + phrasalVerbs + "^_^" + mainDes + "^_^" + anotherDes + "^_^" + " " + "^_^" + " " + "^_^" + brEAudioLink + "^_^" + amEAudioLink);
         }
         catch (Exception ex) {
             browser.logAction("CAN NOT GET INFO FOR THE WORD: " + word.toUpperCase() + "!!! With the exception is: " + ex.toString());
@@ -227,14 +228,14 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   
   public String getShortType(String type) {
       if (type.equalsIgnoreCase("noun")) 
-          return "(N) ";
+          return "N: ";
       if (type.equalsIgnoreCase("verb"))
-          return "(V) ";
+          return "V: ";
       if (type.equalsIgnoreCase("adjective"))
-          return "(Adj) ";
+          return "Adj: ";
       if (type.equalsIgnoreCase("adverb"))
-          return "(Adv) ";
-      return "(" + type + ")";
+          return "Adv: ";
+      return "" + StringUtils.capitalize(type) + ": ";
   }
   
   public String getExtraSectionData(int sectionIndex) {
