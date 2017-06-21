@@ -235,6 +235,10 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
           return "Adj: ";
       if (type.equalsIgnoreCase("adverb"))
           return "Adv: ";
+      if (type.equalsIgnoreCase("preposition"))
+          return "Pre: ";
+      if (type.equalsIgnoreCase("phrasal verb"))
+          return "PhV: ";
       return "" + StringUtils.capitalize(type) + ": ";
   }
   
