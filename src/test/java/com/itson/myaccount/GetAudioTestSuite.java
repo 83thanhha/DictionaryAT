@@ -44,6 +44,8 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   public void getWordInfoEachSheet(String unit) throws JSONException, ParseException {
     browser.logAction("GET INFO FOR UNIT: " + unit);
     Reporter.log("");
+    Reporter.log("================================================================");
+    Reporter.log("");
     plansExcel = Util.Reader.readExcelHasFirstRowIsKeyToJSONArray("Vocabulary-"+book+".xlsx", unit, oxfordInputOutputPath);
     
     for (int i = 0; i < plansExcel.length(); i ++) {
