@@ -5,7 +5,6 @@
  */
 package com.itson.myaccount;
 
-import com.sun.xml.internal.ws.util.StringUtils;
 import java.text.ParseException;
 import java.util.List;
 import org.json.JSONArray;
@@ -239,7 +238,11 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
           return "Pre: ";
       if (type.equalsIgnoreCase("phrasal verb"))
           return "PhV: ";
-      return "" + StringUtils.capitalize(type) + ": ";
+      return "" + capitalize(type) + ": ";
+  }
+  
+  public String capitalize(String str) {
+      return str.substring(0, 1).toUpperCase()+str.substring(1);
   }
   
   public String getExtraSectionData(int sectionIndex) {
