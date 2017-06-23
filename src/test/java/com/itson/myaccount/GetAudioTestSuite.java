@@ -207,7 +207,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       
       if (!util.isStringEmpty(brEAudioLink)) {
         browser.logAction("Get audio of row " + (i+2) + " with word: " + word);
-        download.downloadFile(brEAudioLink, word + "_br.mp3", oxfordInputOutputPath + bookUnitPath);
+        download.downloadFile(brEAudioLink, word + "_1_br.mp3", oxfordInputOutputPath + bookUnitPath);
       }
       else {
           browser.logAction("The row " + (i+2) + " with word '" + word + "' has NO LINK in British English, so next.");
@@ -217,7 +217,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       
       if (!util.isStringEmpty(amEAudioLink)) {
         browser.logAction("Get audio of row " + (i+2) + " with word: " + word);
-        download.downloadFile(amEAudioLink, word + "_am.mp3", oxfordInputOutputPath + bookUnitPath);
+        download.downloadFile(amEAudioLink, word + "_2_am.mp3", oxfordInputOutputPath + bookUnitPath);
       }
       else {
           browser.logAction("The row " + (i+2) + " with word '" + word + "' has NO LINK in American English, so next.");
