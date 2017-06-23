@@ -252,6 +252,7 @@ public class Util {
 
           int cellIndex = 0;
           while (cellIterator.hasNext()) {
+            System.out.println("Row: " + rowIndex + " - Cell: " + cellIndex);
             org.apache.poi.ss.usermodel.Cell cell = cellIterator.next();
             String cellValue = cell.getStringCellValue().trim();
             
