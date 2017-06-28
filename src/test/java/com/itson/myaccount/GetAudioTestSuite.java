@@ -71,6 +71,14 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
         }
 
         try {
+            // CHECK THE CORRECT WORD
+            String wordFact = browser.findElement(By.xpath("//div[@class='webtop-g']/h2")).getText();
+            if (!wordFact.equalsIgnoreCase(word)) {
+                browser.logAction("The row " + (i+2) + " with word '" + word + "' has No data on web, the word in fact is '" + wordFact + "', so next.");
+                Reporter.log("");
+                continue;
+            }
+            
             /** PRONOUNCE **/
             browser.logAction("Get BrE and AmE Pronunciation:");
             List<WebElement> pronounces = browser.findElements(By.cssSelector(".top-container .pron-g .phon"));
