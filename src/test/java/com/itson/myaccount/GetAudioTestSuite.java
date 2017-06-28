@@ -130,7 +130,10 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
             /*~ IDIOM, PHRASAL VERB ~*/
             
             /** MAIN DESCRIPTION **/
-            String type = browser.findElementByXPath("//div[@class='webtop-g']/span[3]").getText();
+            String wordTopSection = browser.findElementByXPath("//div[@class='webtop-g']").getText();
+            String type = "";
+            if (hasType(wordTopSection))
+                type = browser.findElementByXPath("//div[@class='webtop-g']/span[3]").getText();
             List<WebElement> descriptions = browser.findElements(By.cssSelector(".cf,.def"));
             String mainDes = "";
             for (int j = 0; (descriptions.size() > 0 && j < descriptions.size() && j < 10); j++) {
@@ -140,7 +143,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
                 mainDes += ", " + temDes;
             }
             mainDes = getShortType(type) + mainDes.substring(2);
-            browser.logAction("Type of word " + word + ": " + getShortType(type));
+              browser.logAction("Type of word " + word + ": " + getShortType(type));
             /*~ MAIN DESCRIPTION ~*/
             
             /** ANOTHER DESCRIPTION **/
@@ -149,7 +152,11 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
                 browser.click(By.cssSelector(".accordion>dt")); // Open the "All matches" section again (after open the Idioms or Phrasal Verbs sections)
                 browser.click(By.cssSelector(".list-col>li>a"));
                 browser.waitForPageLoaded();
-                String typeAnother = browser.findElementByXPath("//div[@class='webtop-g']/span[3]").getText();
+                
+                String wordTopSectionAnother = browser.findElementByXPath("//div[@class='webtop-g']").getText();
+                String typeAnother = "";
+                if (hasType(wordTopSectionAnother))
+                    typeAnother = browser.findElementByXPath("//div[@class='webtop-g']/span[3]").getText();
                 List<WebElement> descriptionsAnother = browser.findElements(By.cssSelector(".cf,.def"));
                 for (int j = 0; (descriptionsAnother.size() > 0 && j < descriptionsAnother.size() && j < 10); j++) {
                     String temDes = descriptionsAnother.get(j).getText();
@@ -240,7 +247,16 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
           return "Pre: ";
       if (type.equalsIgnoreCase("phrasal verb"))
           return "PhV: ";
+      if (type.trim().isEmpty())
+          return "";
       return "" + capitalize(type) + ": ";
+  }
+  
+  public boolean hasType(String text) {
+      text = text.toLowerCase();
+      if (text.contains("noun") || text.contains("verb") || text.contains("adjective") || text.contains("adverb") || text.contains("preposition") || text.contains("phrasal verb"))
+          return true;
+      return false;
   }
   
   public String capitalize(String str) {

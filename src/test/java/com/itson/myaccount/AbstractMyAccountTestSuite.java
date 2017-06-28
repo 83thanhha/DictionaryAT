@@ -32,6 +32,7 @@ public abstract class AbstractMyAccountTestSuite {
   
   @BeforeClass
   protected void classSetUp() throws Exception {  
+    System.setProperty("bType", "chrome");
     initialBrowser();
     initialUtilObjects();
   }
