@@ -24,15 +24,15 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   private JSONArray plansExcel;
   private String oxfordInputOutputPath = "_OXFORD" + Util.separator;
   
-//  private String book = System.getProperty("book");
-//  private String unitBegin = System.getProperty("unitBegin");
-//  private String unitEnd = System.getProperty("unitEnd");
-//  private int step = Integer.parseInt(System.getProperty("step"));
+  private String book = System.getProperty("book");
+  private String unitBegin = System.getProperty("unitBegin");
+  private String unitEnd = System.getProperty("unitEnd");
+  private int step = Integer.parseInt(System.getProperty("step"));
   
-  private String book = "00";
-  private String unitBegin = "01";
-  private String unitEnd = "01";
-  private int step = 1;
+//  private String book = "00";
+//  private String unitBegin = "01";
+//  private String unitEnd = "01";
+//  private int step = 1;
   
   private String bookFolder = "Book"+book+"-Audio";
     
