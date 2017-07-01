@@ -99,7 +99,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
                 WebElement verbFormSection = browser.findElement(By.cssSelector("[title='Verb Forms']"));
                 verbFormSection.click();
                 
-                workWithAVerbForm(word, "root");
+//                workWithAVerbForm(word, "root");
                 workWithAVerbForm(word, "thirdps");
                 workWithAVerbForm(word, "past");
                 workWithAVerbForm(word, "pastpart");
