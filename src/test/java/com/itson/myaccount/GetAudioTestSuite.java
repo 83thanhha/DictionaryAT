@@ -129,12 +129,17 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
         case "pastpart":
             return "Past participle";
         case "prespart":
-            return "Ving form";
+            return "-Ing form";
     }
     return "";
   }
   
   public void workWithAVerbForm(String word, String formCss) {
+    WebElement verbFormSection = browser.findElement(By.cssSelector("[title='Verb Forms']"));
+    if (!verbFormSection.getText().toLowerCase().contains(getShortDesForVerbForm(formCss).toLowerCase())) {
+      browser.logAction("The verb form '"+ getShortDesForVerbForm(formCss) +"' is Not Available.");
+      return;
+    }
     WebElement formRoot = browser.findElement(By.cssSelector("[form='"+ formCss +"']"));
     String formRootStr = getCurrentWordInFact(formRoot);
 //    if (!formRootStr.equalsIgnoreCase(word)) {
