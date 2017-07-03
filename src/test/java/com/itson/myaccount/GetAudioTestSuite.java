@@ -140,10 +140,10 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       browser.logAction("The verb form '"+ getShortDesForVerbForm(formCss) +"' is Not Available.");
       return;
     }
-    WebElement formRoot = browser.findElement(By.cssSelector("[form='"+ formCss +"']"));
-    String formRootStr = getCurrentWordInFact(formRoot);
+    WebElement formElement = browser.findElement(By.cssSelector("[form='"+ formCss +"']"));
+    String formStr = getCurrentWordInFact(formElement);
 //    if (!formRootStr.equalsIgnoreCase(word)) {
-        Reporter.log(formRootStr + "^_^"+ getShortDesForVerbForm(formCss) +"^_^" + genReportContentOfAVerbForm(formRoot));
+        Reporter.log(formStr + "^_^"+ getShortDesForVerbForm(formCss) +"^_^" + genReportContentOfAVerbForm(formElement));
   }
   
   public String workWithAWord(String word) {
@@ -259,7 +259,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
         /*~ ANOTHER DESCRIPTION ~*/
 
         // SUMMARIZE:
-        returnStr += brEPronounce + "^_^" + amEPronounce + "^_^" + idioms + "^_^" + phrasalVerbs + "^_^" + mainDes + "^_^" + anotherDes + "^_^" + " " + "^_^" + " " + "^_^" + brEAudioLink + "^_^" + amEAudioLink;
+        returnStr += word + "^_^" + brEPronounce + "^_^" + amEPronounce + "^_^" + " " + "^_^" + idioms + "^_^" + phrasalVerbs + "^_^" + mainDes + "^_^" + anotherDes + "^_^" + " " + "^_^" + " " + "^_^" + brEAudioLink + "^_^" + amEAudioLink;
         browser.logAction(returnStr);
     }
     catch (Exception ex) {
@@ -317,7 +317,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
         brEAudioLink = brEAudioEle.getAttribute("data-src-mp3").toString();
         browser.logAction("BrE link of " + word + " is: " + brEAudioLink);
 
-        WebElement amEAudioEle = browser.findElement(By.cssSelector(".sound.audio_play_button.pron-us.icon-audio"));
+        WebElement amEAudioEle = form.findElement(By.cssSelector(".sound.audio_play_button.pron-us.icon-audio"));
         amEAudioLink = amEAudioEle.getAttribute("data-src-mp3").toString();
         browser.logAction("AmE link of " + word + " is: " + amEAudioLink);
         /*~ LINK ~*/
