@@ -101,9 +101,9 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
                 
 //                workWithAVerbForm(word, "root");
                 workWithAVerbForm(word, "thirdps");
+                workWithAVerbForm(word, "prespart");
                 workWithAVerbForm(word, "past");
                 workWithAVerbForm(word, "pastpart");
-                workWithAVerbForm(word, "prespart");
             }
             Reporter.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
