@@ -28,11 +28,13 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   private String unitBegin = System.getProperty("unitBegin");
   private String unitEnd = System.getProperty("unitEnd");
   private int step = Integer.parseInt(System.getProperty("step"));
+  private boolean isShortDesWritten = Boolean.parseBoolean(System.getProperty("isShortDesWritten"));
   
 //  private String book = "00";
 //  private String unitBegin = "01";
 //  private String unitEnd = "01";
 //  private int step = 1;
+//  private int isShortDesWritten = false;
   
   private String bookFolder = "Book"+book+"-Audio";
     
@@ -143,7 +145,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
     WebElement formElement = browser.findElement(By.cssSelector("[form='"+ formCss +"']"));
     String formStr = getCurrentWordInFact(formElement);
 //    if (!formRootStr.equalsIgnoreCase(word)) {
-        Reporter.log(formStr + "^_^"+ getShortDesForVerbForm(formCss) +"^_^" + genReportContentOfAVerbForm(formElement));
+        Reporter.log(formStr + "^_^" + genReportContentOfAVerbForm(formElement, getShortDesForVerbForm(formCss)));
   }
   
   public String workWithAWord(String word) {
@@ -259,7 +261,10 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
         /*~ ANOTHER DESCRIPTION ~*/
 
         // SUMMARIZE:
-        returnStr += word + "^_^" + brEPronounce + "^_^" + amEPronounce + "^_^" + " " + "^_^" + idioms + "^_^" + phrasalVerbs + "^_^" + mainDes + "^_^" + anotherDes + "^_^" + " " + "^_^" + " " + "^_^" + brEAudioLink + "^_^" + amEAudioLink;
+        if (isShortDesWritten)
+            returnStr += brEPronounce + "^_^" + amEPronounce + "^_^" + idioms + "^_^" + phrasalVerbs + "^_^" + mainDes + "^_^" + anotherDes + "^_^" + " " + "^_^" + " " + "^_^" + brEAudioLink + "^_^" + amEAudioLink;
+        else
+            returnStr += word + "^_^" + brEPronounce + "^_^" + amEPronounce + "^_^" + " " + "^_^" + idioms + "^_^" + phrasalVerbs + "^_^" + mainDes + "^_^" + anotherDes + "^_^" + " " + "^_^" + " " + "^_^" + brEAudioLink + "^_^" + amEAudioLink;
         browser.logAction(returnStr);
     }
     catch (Exception ex) {
@@ -276,7 +281,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
     return prefixFullStr.replace(prefixStr, "").trim();
   }
   
-  public String genReportContentOfAVerbForm(WebElement form) {
+  public String genReportContentOfAVerbForm(WebElement form, String shortDes) {
     String word = form.getText();
     String returnStr = "";
     
@@ -323,7 +328,10 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
         /*~ LINK ~*/
 
         // SUMMARIZE:
-        returnStr += brEPronounce + "^_^" + amEPronounce + "^_^^_^^_^^_^^_^ ^_^ ^_^" + brEAudioLink + "^_^" + amEAudioLink;
+        if (isShortDesWritten)
+            returnStr += shortDes + "^_^" + brEPronounce + "^_^" + amEPronounce + "^_^" + "^_^^_^^_^^_^ ^_^ ^_^" + brEAudioLink + "^_^" + amEAudioLink;
+        else
+            returnStr += brEPronounce + "^_^" + amEPronounce + "^_^" + shortDes + "^_^" + "^_^^_^^_^^_^ ^_^ ^_^" + brEAudioLink + "^_^" + amEAudioLink;
         browser.logAction(returnStr);
     }
     catch (Exception ex) {
