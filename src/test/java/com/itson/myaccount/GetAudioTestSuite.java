@@ -96,7 +96,8 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
             browser.click(searchBtn);
             browser.waitForPageLoaded();
 
-            Reporter.log("----------------------------------------------------------------");
+            if (isShortDesWritten)
+                Reporter.log("----------------------------------------------------------------");
             if (browser.findElementByCssSelector(".top-container").getText().contains("Verb Forms")) {
                 WebElement verbFormSection = browser.findElement(By.cssSelector("[title='Verb Forms']"));
                 verbFormSection.click();
@@ -107,7 +108,8 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
                 workWithAVerbForm(word, "past");
                 workWithAVerbForm(word, "pastpart");
             }
-            Reporter.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            if (isShortDesWritten)
+                Reporter.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
         /*~ VERB ~*/
         
@@ -373,7 +375,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       if (step > 0)
           stepStr = String.format("%02d", i+2-2+step) + "";
       if (!util.isStringEmpty(brEAudioLink)) {
-        browser.logAction("Get audio of row " + (i+2) + " with word: " + word);
+        browser.logAction("Get BR audio of row " + (i+2) + " with word: " + word);
         download.downloadFile(brEAudioLink, stepStr + "_" + word + "_1_br.mp3", oxfordInputOutputPath + bookUnitPath);
       }
       else {
@@ -383,7 +385,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       }
       
       if (!util.isStringEmpty(amEAudioLink)) {
-        browser.logAction("Get audio of row " + (i+2) + " with word: " + word);
+        browser.logAction("Get AM audio of row " + (i+2) + " with word: " + word);
         download.downloadFile(amEAudioLink, stepStr + "_" + word + "_2_am.mp3", oxfordInputOutputPath + bookUnitPath);
       }
       else {
