@@ -5,8 +5,15 @@
  */
 package com.itson.myaccount;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.List;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.openqa.selenium.By;
@@ -24,19 +31,22 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   private JSONArray plansExcel;
   private String oxfordInputOutputPath = "_OXFORD" + Util.separator;
   
-  private String book = System.getProperty("book");
-  private String unitBegin = System.getProperty("unitBegin");
-  private String unitEnd = System.getProperty("unitEnd");
-  private int step = Integer.parseInt(System.getProperty("step"));
-  private boolean isShortDesWritten = Boolean.parseBoolean(System.getProperty("isShortDesWritten"));
+//  private String book = System.getProperty("book");
+//  private String unitBegin = System.getProperty("unitBegin");
+//  private String unitEnd = System.getProperty("unitEnd");
+//  private int step = Integer.parseInt(System.getProperty("step"));
+//  private boolean isShortDesWritten = Boolean.parseBoolean(System.getProperty("isShortDesWritten"));
   
-//  private String book = "00";
-//  private String unitBegin = "01";
-//  private String unitEnd = "01";
-//  private int step = 1;
-//  private int isShortDesWritten = false;
+  private String book = "00";
+  private String unitBegin = "01";
+  private String unitEnd = "01";
+  private int step = 1;
+  private boolean isShortDesWritten = false;
   
   private String bookFolder = "Book"+book+"-Audio";
+  private String learnedWorldsFolder = "LearnedWords" + Util.separator;
+  
+  String fileNameOthers = "others.txt";
     
   @BeforeMethod // Use when setup this testsuite will run with multi account
   public void methodSetUpGetAudio() throws JSONException {
@@ -345,7 +355,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   }
   
   @Test(groups = {"MyAccount", "Zact", "Sprint"}, priority = 1)
-  public void getAudioFileMultiSheets() throws JSONException, ParseException  {
+  public void getAudioFileMultiSheets() throws JSONException, ParseException, IOException  {
       int unitBeginInt = Integer.parseInt(unitBegin);
       int unitEndInt = Integer.parseInt(unitEnd);
       for (int i = unitBeginInt; i <= unitEndInt; i ++) {
@@ -353,7 +363,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       }
   }
   
-  public void getAudioFileEachSheet(String unit) throws JSONException, ParseException  {
+  public void getAudioFileEachSheet(String unit) throws JSONException, ParseException, IOException  {
     browser.logAction("GET AUDIO FILE FOR UNIT: " + unit);
     Reporter.log("");
     String unitFolder = "Book"+book+"-Unit"+unit;
@@ -367,6 +377,8 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
           browser.logAction("EMPTY ROW, so Next");    
           continue;
       }
+      
+      saveNewWord(word);
       
       String brEAudioLink = plansExcel.getJSONObject(i).getString("BrEAudioLink");
       String amEAudioLink = plansExcel.getJSONObject(i).getString("AmEAudioLink");
@@ -440,5 +452,101 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       }
       extraSectionData = extraSectionData.substring(2);
       return extraSectionData;
+  }
+  
+  public String getFileNameToSaveWord(String word) {
+    String fileName = getFileNameWithEachCase(word, "a", "g");
+    if (fileName.equals(fileNameOthers)) {
+        fileName = getFileNameWithEachCase(word, "h", "o");
+        
+        if (fileName.equals(fileNameOthers))
+            fileName = getFileNameWithEachCase(word, "p", "z");
+    }
+    return fileName;
+  }
+  
+  public String getFileNameWithEachCase(String word, String caseBegin, String caseEnd) {
+    String firstLetter = word.substring(0, 1).toUpperCase();
+    String string1 = firstLetter + caseBegin;
+    String string2 = word.substring(0, 2);  
+    String string3 = firstLetter + caseEnd;
+    int compareA = string1.compareToIgnoreCase(string2);  
+    int compareB = string2.compareToIgnoreCase(string3);
+    if (compareA <= 0 && compareB <= 0)  
+    {  
+        //string1 is smaller string2 or equal
+        //string2 is smaller string3 or equal
+        return string1 + "-" + string3 + ".txt";
+    }  
+    return fileNameOthers;
+  }
+  
+  public int getPositionToSaveWord (String word, List<String> lines) {
+      int position = 0;
+      
+    for (int i = 0; i < lines.size(); i ++) {
+        position = i;
+        
+        String lineI = lines.get(i);
+        browser.logAction("COMPARE: word '"+ word +"' WITH lines["+ i +"] '"+ lineI +"'");
+        int compareA = word.compareToIgnoreCase(lineI);
+        
+        if (compareA < 0 || lineI.isEmpty())
+            return position;
+        
+        int compareB = -1;
+        String lineI1 = "";
+        if (lines.size() > i+1) {
+            lineI1 = lines.get(i+1);
+            compareB = word.compareToIgnoreCase(lineI1);
+        }
+        
+        if (compareA > 0 && compareB < 0) {
+            position = i + 1;
+//            if (lineI.isEmpty() && lineI1.isEmpty())
+//                position = i;
+            break;
+        }
+        else if (compareA == 0 || compareB == 0) {
+            position = -1;
+            browser.logAction("DUPLICATE: word '"+ word +"' WITH lines["+ i +"] '"+ lineI +"' OR lines["+ (i+1) +"] '"+ lineI1 +"'");
+            break;
+        }
+    }
+      return position;
+  }
+  
+  public void saveNewWord(String word) throws IOException {
+//      if (word.equals("goes") // For debugging the words were written in the file others.txt
+//              || word.equals("going")
+//              || word.equals("gone")
+//              || word.equals("wore")
+//              || word.equals("worn")
+//              )
+//          browser.logAction("OTHER OTHER OTHER WORD: " + word);
+      
+    String fileName = getFileNameToSaveWord(word);
+    String folderPath = "../" + oxfordInputOutputPath + learnedWorldsFolder;
+    File file = new File(folderPath + fileName);
+    // if file doesnt exists, then create it  
+    if (!file.exists()) {
+        file.createNewFile();
+    }
+    
+    Path path = Paths.get(folderPath + fileName);
+    List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+    
+    int position = getPositionToSaveWord(word, lines);
+    if (position < 0)
+        return;
+    lines.add(position, word);
+    Files.write(path, lines, StandardCharsets.UTF_8);
+  }
+  
+  public void saveAllWords(String word) throws IOException {
+    String fileName = "AllWords.txt";
+    String folderPath = "../" + oxfordInputOutputPath + learnedWorldsFolder;
+    File file = new File(folderPath + fileName);
+    FileUtils.writeStringToFile(file, word + ", ", true);
   }
 }
