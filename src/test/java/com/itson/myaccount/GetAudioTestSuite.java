@@ -360,6 +360,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       int unitEndInt = Integer.parseInt(unitEnd);
       for (int i = unitBeginInt; i <= unitEndInt; i ++) {
           getAudioFileEachSheet(String.format("%02d", i));
+          saveAllWords("\n");
       }
   }
   
@@ -379,6 +380,9 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       }
       
       saveNewWord(word);
+      if (i == 19)
+          saveAllWords("\n");
+      saveAllWords(word);
       
       String brEAudioLink = plansExcel.getJSONObject(i).getString("BrEAudioLink");
       String amEAudioLink = plansExcel.getJSONObject(i).getString("AmEAudioLink");
