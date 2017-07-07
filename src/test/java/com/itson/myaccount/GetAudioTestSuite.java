@@ -384,7 +384,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       saveAllWords(word);
       
       if (true)
-        return;
+        continue;
       
       saveNewWord(word);
       
