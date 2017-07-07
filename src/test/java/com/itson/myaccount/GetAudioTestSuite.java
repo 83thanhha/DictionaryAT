@@ -554,7 +554,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   }
   
   public void saveAllWords(String word) throws IOException {
-    String fileName = "AllWords.txt";
+    String fileName = "_AllWords.txt";
     String folderPath = "../" + oxfordInputOutputPath + learnedWorldsFolder;
     File file = new File(folderPath + fileName);
     FileUtils.writeStringToFile(file, word + ", ", true);
