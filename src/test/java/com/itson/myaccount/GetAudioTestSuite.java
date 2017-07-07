@@ -379,10 +379,14 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
           continue;
       }
       
-      saveNewWord(word);
       if (i == 19)
           saveAllWords("\n");
       saveAllWords(word);
+      
+      if (true)
+        return;
+      
+      saveNewWord(word);
       
       String brEAudioLink = plansExcel.getJSONObject(i).getString("BrEAudioLink");
       String amEAudioLink = plansExcel.getJSONObject(i).getString("AmEAudioLink");
