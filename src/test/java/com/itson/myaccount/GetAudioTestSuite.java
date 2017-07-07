@@ -472,7 +472,9 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   public String getFileNameWithEachCase(String word, String caseBegin, String caseEnd) {
     String firstLetter = word.substring(0, 1).toUpperCase();
     String string1 = firstLetter + caseBegin;
-    String string2 = word.substring(0, 2);  
+    String string2 = word.substring(0, 1);
+    if (word.length() >= 2)
+        word.substring(0, 2);  
     String string3 = firstLetter + caseEnd;
     int compareA = string1.compareToIgnoreCase(string2);  
     int compareB = string2.compareToIgnoreCase(string3);
