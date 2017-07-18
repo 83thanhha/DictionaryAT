@@ -383,8 +383,8 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
           saveAllWords("\n");
       saveAllWords(word);
       
-      if (true)
-        continue;
+//      if (true)
+//        continue;
       
       saveNewWord(word);
       
