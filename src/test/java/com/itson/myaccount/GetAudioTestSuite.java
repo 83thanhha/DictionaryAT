@@ -54,15 +54,19 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   
   String fileNameOthers = "others.txt";
     
+  int unitBeginInt;
+  int unitEndInt;
+  
   @BeforeMethod // Use when setup this testsuite will run with multi account
   public void methodSetUpGetAudio() throws JSONException {
-      browser.logAction("STEP = " + step);
+      int unitBeginInt = Integer.parseInt(unitBegin);
+      int unitEndInt = Integer.parseInt(unitEnd);
+      if (unitEndInt < unitBeginInt)
+          unitEndInt = unitBeginInt;
   }
 
   @Test(groups = {"MyAccount", "Zact", "Sprint"}, priority = 1)
   public void getWordInfoMultiSheets() throws JSONException, ParseException  {
-      int unitBeginInt = Integer.parseInt(unitBegin);
-      int unitEndInt = Integer.parseInt(unitEnd);
       for (int i = unitBeginInt; i <= unitEndInt; i ++) {
           getWordInfoEachSheet(String.format("%02d", i));
       }
@@ -363,8 +367,6 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   @Test(groups = {"MyAccount", "Zact", "Sprint"}, priority = 1)
   public void getAudioFileMultiSheets() throws JSONException, ParseException, IOException  {
       browser.logAction("BOOOOOOOOK: " + bookFolder);
-      int unitBeginInt = Integer.parseInt(unitBegin);
-      int unitEndInt = Integer.parseInt(unitEnd);
       browser.logAction("UNITTTTTTTTSSSSSSSSS: " + unitEndInt);
       for (int i = unitBeginInt; i <= unitEndInt; i ++) {
           browser.logAction("UNITTTTTTTT: " + i);
