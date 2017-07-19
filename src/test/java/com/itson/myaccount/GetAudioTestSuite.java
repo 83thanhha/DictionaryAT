@@ -37,10 +37,10 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   private String unitEnd = System.getenv().get("unitEnd");
   private boolean isShortDesWritten = Boolean.parseBoolean(System.getenv().get("isShortDesWritten"));
   
+//  private int step = Integer.parseInt(System.getProperty("step"));
 //  private String book = System.getenv().get("book");//System.getProperty("book");
 //  private String unitBegin = System.getProperty("unitBegin");
 //  private String unitEnd = System.getProperty("unitEnd");
-//  private int step = Integer.parseInt(System.getProperty("step"));
 //  private boolean isShortDesWritten = Boolean.parseBoolean(System.getProperty("isShortDesWritten"));
   
 //  private String book = "00";
@@ -483,11 +483,11 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   }
   
   public String getFileNameWithEachCase(String word, String caseBegin, String caseEnd) {
-    String firstLetter = word.substring(0, 1).toUpperCase();
+    String firstLetter = word.substring(0, 1);
     String string1 = firstLetter + caseBegin;
     String string2 = word.substring(0, 1);
     if (word.length() >= 2)
-        word.substring(0, 2);  
+        string2 = word.substring(0, 2);  
     String string3 = firstLetter + caseEnd;
     int compareA = string1.compareToIgnoreCase(string2);  
     int compareB = string2.compareToIgnoreCase(string3);
