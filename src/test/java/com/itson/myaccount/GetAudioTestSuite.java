@@ -31,17 +31,23 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   private JSONArray plansExcel;
   private String oxfordInputOutputPath = "_OXFORD" + Util.separator;
   
-  private String book = System.getenv().get("book");//System.getProperty("book");
+  private int step = Integer.parseInt(System.getenv().get("step"));
+  private String book = System.getenv().get("book");
+  private String unitBegin = System.getenv().get("unitBegin");
+  private String unitEnd = System.getenv().get("unitEnd");
+  private boolean isShortDesWritten = Boolean.parseBoolean(System.getenv().get("isShortDesWritten"));
+  
+//  private String book = System.getenv().get("book");//System.getProperty("book");
 //  private String unitBegin = System.getProperty("unitBegin");
 //  private String unitEnd = System.getProperty("unitEnd");
 //  private int step = Integer.parseInt(System.getProperty("step"));
 //  private boolean isShortDesWritten = Boolean.parseBoolean(System.getProperty("isShortDesWritten"));
   
 //  private String book = "00";
-  private String unitBegin = "01";
-  private String unitEnd = "01";
-  private int step = 1;
-  private boolean isShortDesWritten = false;
+//  private String unitBegin = "01";
+//  private String unitEnd = "01";
+//  private int step = 1;
+//  private boolean isShortDesWritten = false;
   
   private String bookFolder = "Book"+book+"-Audio";
   private String learnedWorldsFolder = "LearnedWords" + Util.separator;
@@ -359,7 +365,9 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       browser.logAction("BOOOOOOOOK: " + bookFolder);
       int unitBeginInt = Integer.parseInt(unitBegin);
       int unitEndInt = Integer.parseInt(unitEnd);
+      browser.logAction("UNITTTTTTTTSSSSSSSSS: " + unitEndInt);
       for (int i = unitBeginInt; i <= unitEndInt; i ++) {
+          browser.logAction("UNITTTTTTTT: " + i);
           getAudioFileEachSheet(String.format("%02d", i));
           saveAllWords("\n");
       }
