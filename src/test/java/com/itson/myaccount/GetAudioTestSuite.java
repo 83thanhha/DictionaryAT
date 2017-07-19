@@ -31,7 +31,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   private JSONArray plansExcel;
   private String oxfordInputOutputPath = "_OXFORD" + Util.separator;
   
-  private String book = System.getProperty("book");
+  private String book = System.getenv().get("book");//System.getProperty("book");
 //  private String unitBegin = System.getProperty("unitBegin");
 //  private String unitEnd = System.getProperty("unitEnd");
 //  private int step = Integer.parseInt(System.getProperty("step"));
@@ -357,7 +357,6 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   @Test(groups = {"MyAccount", "Zact", "Sprint"}, priority = 1)
   public void getAudioFileMultiSheets() throws JSONException, ParseException, IOException  {
       browser.logAction("BOOOOOOOOK: " + bookFolder);
-      browser.logAction("ENVVVVVVV: " + System.getenv().toString());
       int unitBeginInt = Integer.parseInt(unitBegin);
       int unitEndInt = Integer.parseInt(unitEnd);
       for (int i = unitBeginInt; i <= unitEndInt; i ++) {
