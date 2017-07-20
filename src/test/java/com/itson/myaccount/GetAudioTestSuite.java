@@ -59,8 +59,8 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   
   @BeforeMethod // Use when setup this testsuite will run with multi account
   public void methodSetUpGetAudio() throws JSONException {
-      int unitBeginInt = Integer.parseInt(unitBegin);
-      int unitEndInt = Integer.parseInt(unitEnd);
+      unitBeginInt = Integer.parseInt(unitBegin);
+      unitEndInt = Integer.parseInt(unitEnd);
       if (unitEndInt < unitBeginInt)
           unitEndInt = unitBeginInt;
   }
