@@ -367,7 +367,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
   @Test(groups = {"MyAccount", "Zact", "Sprint"}, priority = 1)
   public void getAudioFileMultiSheets() throws JSONException, ParseException, IOException  {
       browser.logAction("BOOOOOOOOK: " + bookFolder);
-      browser.logAction("UNITTTTTTTTSSSSSSSSS: " + unitEndInt);
+      browser.logAction("UNITTTTTTTTENDDDDDDDDD: " + unitEndInt);
       for (int i = unitBeginInt; i <= unitEndInt; i ++) {
           browser.logAction("UNITTTTTTTT: " + i);
           getAudioFileEachSheet(String.format("%02d", i));
