@@ -83,7 +83,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
       browser.logAction("Get row: " + (i+2));
       boolean isV = false;
       String word = plansExcel.getJSONObject(i).getString("Word").trim();
-      if (word.isEmpty() || word.equalsIgnoreCase("n/a")) {
+      if (word.isEmpty() || word.equalsIgnoreCase("n/a") || word.equalsIgnoreCase("ENDOFFILE")) {
           browser.logAction("EMPTY ROW, so Next");    
           continue;
       }
@@ -385,7 +385,7 @@ public class GetAudioTestSuite extends AbstractMyAccountTestSuite {
     for (int i = 0; i < plansExcel.length(); i ++) {
       browser.logAction("Get row: " + (i+2));
       String word = plansExcel.getJSONObject(i).getString("Word").trim();
-      if (word.isEmpty() || word.equalsIgnoreCase("n/a")) {
+      if (word.isEmpty() || word.equalsIgnoreCase("n/a") || word.equalsIgnoreCase("ENDOFFILE")) {
           browser.logAction("EMPTY ROW, so Next");    
           continue;
       }
